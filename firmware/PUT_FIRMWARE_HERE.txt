@@ -1,0 +1,2 @@
+Put your merged firmware file here, named to match manifest.json
+(for example roip_v67_merged.bin).

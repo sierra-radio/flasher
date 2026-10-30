@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>551 ROIP Firmware Update</title>
+<meta name="description" content="Update the firmware on your Sierra Radio Systems 551 ROIP from your web browser over USB.">
+<script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
+<style>
+  :root {
+    --bg: #f4f6f8; --card: #ffffff; --ink: #18222c; --muted: #5a6875;
+    --line: #dde3e8; --accent: #0b5d8f; --accent-ink: #ffffff;
+    --warn-bg: #fff6e0; --warn-line: #e5c66b; --bad-bg: #fdecec; --bad-line: #e2a3a3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11171c; --card: #1a232b; --ink: #e6edf2; --muted: #9aa8b4;
+      --line: #2c3842; --accent: #3b9be0; --accent-ink: #0c1218;
+      --warn-bg: #2e2715; --warn-line: #6e5a24; --bad-bg: #321b1b; --bad-line: #7a3a3a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 48px; }
+  .brand { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
+  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; }
+  .ver { color: var(--muted); margin: 0 0 24px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
+  h2 { font-size: 17px; margin: 0 0 12px; }
+  ol { margin: 0; padding-left: 22px; }
+  ol li { margin: 6px 0; }
+  .install { text-align: center; padding: 28px 22px; }
+  .btn { font: inherit; font-weight: 600; font-size: 17px; cursor: pointer; border: 0;
+         border-radius: 10px; padding: 14px 34px; background: var(--accent); color: var(--accent-ink); }
+  .btn:hover { filter: brightness(1.08); }
+  .msg { text-align: left; border-radius: 8px; padding: 12px 14px; border: 1px solid var(--bad-line); background: var(--bad-bg); }
+  .note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 12px 14px; margin-top: 18px; text-align: left; font-size: 15px; }
+  details { border-top: 1px solid var(--line); padding: 12px 0; }
+  details:first-of-type { border-top: 0; padding-top: 0; }
+  summary { cursor: pointer; font-weight: 600; }
+  details p { margin: 8px 0 0; color: var(--muted); }
+  a { color: var(--accent); }
+  esp-web-install-button:not(:defined) [slot="unsupported"],
+  esp-web-install-button:not(:defined) [slot="not-allowed"] { display: none; }
+  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 28px; }
+</style>
+</head>
+<body>
+<main>
+  <p class="brand">Sierra Radio Systems</p>
+  <h1>551 ROIP Firmware Update</h1>
+  <p class="ver" id="ver">Latest firmware</p>
+
+  <section class="card">
+    <h2>Before you start</h2>
+    <ol>
+      <li>Use <b>Google Chrome</b> or <b>Microsoft Edge</b> on a Windows, Mac, Linux or ChromeOS computer. Phones and tablets won't work.</li>
+      <li>Connect the ROIP board to the computer with a USB data cable.</li>
+      <li>Click <b>Install firmware</b> below, choose the board's port from the list, and follow the prompts.</li>
+      <li>Leave the cable connected until the page says the install is finished.</li>
+    </ol>
+  </section>
+
+  <section class="card install">
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate" class="btn">Install firmware</button>
+      <div slot="unsupported" class="msg">
+        <b>This browser can't talk to USB devices.</b> Open this page in Google Chrome or Microsoft Edge on a computer.
+      </div>
+      <div slot="not-allowed" class="msg">
+        <b>This page must be opened over a secure (https://) address.</b>
+      </div>
+    </esp-web-install-button>
+    <div class="note">
+      <b>Updating a board that's already set up?</b> When asked whether to erase the device, choose <b>No</b>.
+      Erasing wipes your saved settings (IP address, password, codec).
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Help</h2>
+    <details>
+      <summary>The board doesn't appear in the list</summary>
+      <p>Try a different USB cable (some are charge-only) or another USB port. On Windows, install the
+        <a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" target="_blank" rel="noopener">Silicon Labs CP210x driver</a>,
+        then unplug and reconnect the board.</p>
+    </details>
+    <details>
+      <summary>The install fails to connect</summary>
+      <p>Hold the board's <b>BOOT</b> button, tap <b>RESET</b>, release BOOT, then click Install firmware again.</p>
+    </details>
+    <details>
+      <summary>Changing settings after installing</summary>
+      <p>After the install, choose <b>Logs &amp; Console</b> to open a serial console in your browser and type the usual setup commands.</p>
+    </details>
+  </section>
+
+  <footer>Sierra Radio Systems &middot; 551 ROIP</footer>
+</main>
+<script>
+  fetch("manifest.json", { cache: "no-store" })
+    .then(r => r.json())
+    .then(m => { document.getElementById("ver").textContent = "Latest firmware: version " + m.version; })
+    .catch(() => {});
+</script>
+</body>
+</html>
