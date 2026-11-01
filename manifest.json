@@ -6,7 +6,7 @@
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "firmware/roip_v67_merged.bin", "offset": 0 }
+        { "path": "roip_v67_merged.bin", "offset": 0 }
       ]
     }
   ]
