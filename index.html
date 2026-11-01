@@ -3,106 +3,136 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>551 ROIP Firmware Update</title>
-<meta name="description" content="Update the firmware on your Sierra Radio Systems 551 ROIP from your web browser over USB.">
+<title>Sierra Radio Systems Firmware</title>
 <script type="module" src="https://unpkg.com/esp-web-tools@10.4.0/dist/web/install-button.js?module"></script>
 <style>
-  :root {
-    --bg: #f4f6f8; --card: #ffffff; --ink: #18222c; --muted: #5a6875;
-    --line: #dde3e8; --accent: #0b5d8f; --accent-ink: #ffffff;
-    --warn-bg: #fff6e0; --warn-line: #e5c66b; --bad-bg: #fdecec; --bad-line: #e2a3a3;
-  }
+  :root { --bg:#f6f7f9; --card:#fff; --text:#1d2330; --muted:#5b6475; --line:#dde1e8; --accent:#1f5fbf; --warn-bg:#fff4e0; --warn-line:#f0c37a; }
   @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #11171c; --card: #1a232b; --ink: #e6edf2; --muted: #9aa8b4;
-      --line: #2c3842; --accent: #3b9be0; --accent-ink: #0c1218;
-      --warn-bg: #2e2715; --warn-line: #6e5a24; --bad-bg: #321b1b; --bad-line: #7a3a3a;
-    }
+    :root { --bg:#14171c; --card:#1d2128; --text:#e6e9ef; --muted:#9aa3b2; --line:#2e343e; --accent:#5b9bff; --warn-bg:#3a2e17; --warn-line:#8a6a2e; }
   }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-  main { max-width: 680px; margin: 0 auto; padding: 32px 16px 48px; }
-  .brand { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 4px; }
-  h1 { font-size: 28px; line-height: 1.2; margin: 0 0 6px; }
-  .ver { color: var(--muted); margin: 0 0 24px; }
-  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 22px; margin-bottom: 18px; }
-  h2 { font-size: 17px; margin: 0 0 12px; }
-  ol { margin: 0; padding-left: 22px; }
-  ol li { margin: 6px 0; }
-  .install { text-align: center; padding: 28px 22px; }
-  .btn { font: inherit; font-weight: 600; font-size: 17px; cursor: pointer; border: 0;
-         border-radius: 10px; padding: 14px 34px; background: var(--accent); color: var(--accent-ink); }
-  .btn:hover { filter: brightness(1.08); }
-  .msg { text-align: left; border-radius: 8px; padding: 12px 14px; border: 1px solid var(--bad-line); background: var(--bad-bg); }
-  .note { border: 1px solid var(--warn-line); background: var(--warn-bg); border-radius: 8px; padding: 12px 14px; margin-top: 18px; text-align: left; font-size: 15px; }
-  details { border-top: 1px solid var(--line); padding: 12px 0; }
-  details:first-of-type { border-top: 0; padding-top: 0; }
-  summary { cursor: pointer; font-weight: 600; }
-  details p { margin: 8px 0 0; color: var(--muted); }
-  a { color: var(--accent); }
-  esp-web-install-button:not(:defined) [slot="unsupported"],
-  esp-web-install-button:not(:defined) [slot="not-allowed"] { display: none; }
-  footer { color: var(--muted); font-size: 13px; text-align: center; margin-top: 28px; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:760px; margin:0 auto; padding:32px 16px 48px; }
+  h1 { font-size:1.6rem; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .notice { background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:8px; padding:12px 16px; margin-bottom:20px; display:none; }
+  nav { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px; }
+  nav a { color:var(--accent); text-decoration:none; border:1px solid var(--line); background:var(--card); border-radius:999px; padding:4px 12px; font-size:.9rem; }
+  nav a:hover { border-color:var(--accent); }
+  .product { margin-bottom:32px; scroll-margin-top:16px; }
+  .product > h2 { font-size:1.25rem; margin:0 0 10px; padding-bottom:6px; border-bottom:2px solid var(--line); }
+  .version { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .version h3 { font-size:1.05rem; margin:0; }
+  .version p { margin:2px 0 0; color:var(--muted); font-size:.92rem; }
+  .tag { display:inline-block; font-size:.75rem; font-weight:600; background:var(--accent); color:#fff; border-radius:4px; padding:1px 6px; margin-left:6px; vertical-align:middle; }
+  button.install { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:10px 18px; font-size:.95rem; font-weight:600; cursor:pointer; white-space:nowrap; }
+  button.install:hover { filter:brightness(1.1); }
+  ol { padding-left:20px; }
+  .help { margin-top:36px; border-top:1px solid var(--line); padding-top:12px; }
+  .help h3 { font-size:1rem; margin-bottom:4px; }
 </style>
 </head>
 <body>
 <main>
-  <p class="brand">Sierra Radio Systems</p>
-  <h1>551 ROIP Firmware Update</h1>
-  <p class="ver" id="ver">Latest firmware</p>
+  <h1>Sierra Radio Systems Firmware</h1>
+  <p class="sub">Plug your device into this computer with a USB data cable, find your product below, and click Install next to the version you want.</p>
 
-  <section class="card">
-    <h2>Before you start</h2>
-    <ol>
-      <li>Use <b>Google Chrome</b> or <b>Microsoft Edge</b> on a Windows, Mac, Linux or ChromeOS computer. Phones and tablets won't work.</li>
-      <li>Connect the ROIP board to the computer with a USB data cable.</li>
-      <li>Click <b>Install firmware</b> below, choose the board's port from the list, and follow the prompts.</li>
-      <li>Leave the cable connected until the page says the install is finished.</li>
-    </ol>
-  </section>
+  <div class="notice" id="no-serial">
+    This browser can't update firmware. Please open this page in <b>Google Chrome</b> or <b>Microsoft Edge</b> on a desktop or laptop computer.
+  </div>
 
-  <section class="card install">
-    <esp-web-install-button manifest="manifest.json">
-      <button slot="activate" class="btn">Install firmware</button>
-      <div slot="unsupported" class="msg">
-        <b>This browser can't talk to USB devices.</b> Open this page in Google Chrome or Microsoft Edge on a computer.
+  <nav>
+    <a href="#roip">ROIP Device</a>
+    <a href="#gpio">GPIO Module</a>
+    <a href="#coaxrelay">Coax Relay Module</a>
+  </nav>
+
+  <!-- =====================================================================
+       HOW TO EDIT THIS PAGE
+       New version of an existing product:
+         1. Upload the .bin and make a manifest for it (copy an existing one,
+            change "version" and "path").
+         2. Copy one <div class="version"> block in that product's section,
+            paste it at the top of the section, and change the title,
+            description, manifest file name and button text.
+         3. Move the "Latest" tag to the new version.
+       New product:
+         1. Copy a whole <section class="product"> block and give it a new id.
+         2. Add a matching link in the <nav> above.
+       ===================================================================== -->
+
+  <!-- ===== ROIP DEVICE ===== -->
+  <section class="product" id="roip">
+    <h2>ROIP Device</h2>
+
+    <div class="version">
+      <div>
+        <h3>ROIP Device rev 68 <span class="tag">Latest</span></h3>
+        <p>Current release.</p>
       </div>
-      <div slot="not-allowed" class="msg">
-        <b>This page must be opened over a secure (https://) address.</b>
+      <esp-web-install-button manifest="roip-v68.json">
+        <button class="install" slot="activate">Install rev 68</button>
+      </esp-web-install-button>
+    </div>
+
+    <div class="version">
+      <div>
+        <h3>ROIP Device rev 67</h3>
+        <p>Previous release.</p>
       </div>
-    </esp-web-install-button>
-    <div class="note">
-      <b>Updating a board that's already set up?</b> When asked whether to erase the device, choose <b>No</b>.
-      Erasing wipes your saved settings (IP address, password, codec).
+      <esp-web-install-button manifest="roip-v67.json">
+        <button class="install" slot="activate">Install rev 67</button>
+      </esp-web-install-button>
     </div>
   </section>
 
-  <section class="card">
-    <h2>Help</h2>
-    <details>
-      <summary>The board doesn't appear in the list</summary>
-      <p>Try a different USB cable (some are charge-only) or another USB port. On Windows, install the
-        <a href="https://www.silabs.com/developer-tools/usb-to-uart-bridge-vcp-drivers" target="_blank" rel="noopener">Silicon Labs CP210x driver</a>,
-        then unplug and reconnect the board.</p>
-    </details>
-    <details>
-      <summary>The install fails to connect</summary>
-      <p>Hold the board's <b>BOOT</b> button, tap <b>RESET</b>, release BOOT, then click Install firmware again.</p>
-    </details>
-    <details>
-      <summary>Changing settings after installing</summary>
-      <p>After the install, choose <b>Logs &amp; Console</b> to open a serial console in your browser and type the usual setup commands.</p>
-    </details>
+  <!-- ===== GPIO MODULE ===== -->
+  <section class="product" id="gpio">
+    <h2>GPIO Module</h2>
+
+    <div class="version">
+      <div>
+        <h3>GPIO Module version 106 <span class="tag">Latest</span></h3>
+        <p>Current release.</p>
+      </div>
+      <esp-web-install-button manifest="gpio-v106.json">
+        <button class="install" slot="activate">Install v106</button>
+      </esp-web-install-button>
+    </div>
   </section>
 
-  <footer>Sierra Radio Systems &middot; 551 ROIP</footer>
+  <!-- ===== COAX RELAY MODULE ===== -->
+  <section class="product" id="coaxrelay">
+    <h2>Coax Relay Module</h2>
+
+    <div class="version">
+      <div>
+        <h3>Coax Relay Module version 123 <span class="tag">Latest</span></h3>
+        <p>Current release.</p>
+      </div>
+      <esp-web-install-button manifest="coaxrelay-v123.json">
+        <button class="install" slot="activate">Install v123</button>
+      </esp-web-install-button>
+    </div>
+  </section>
+
+  <section class="help">
+    <h3>How it works</h3>
+    <ol>
+      <li>Make sure you pick the firmware for <b>your product</b>. Installing another product's firmware won't work.</li>
+      <li>Click <b>Install</b> next to the version you want.</li>
+      <li>Pick your device from the list of ports and click <b>Connect</b>.</li>
+      <li>When asked to erase, choose <b>No</b> to keep your settings, or <b>Yes</b> for a full factory reset.</li>
+      <li>Wait for the install to finish. Don't unplug the device until it says it's done.</li>
+    </ol>
+    <h3>No port in the list?</h3>
+    <p>Try another USB cable (some only charge) or another USB port, and close any other program that's connected to the device.</p>
+  </section>
 </main>
 <script>
-  fetch("manifest.json", { cache: "no-store" })
-    .then(r => r.json())
-    .then(m => { document.getElementById("ver").textContent = "Latest firmware: version " + m.version; })
-    .catch(() => {});
+  if (!("serial" in navigator)) {
+    document.getElementById("no-serial").style.display = "block";
+  }
 </script>
 </body>
 </html>
