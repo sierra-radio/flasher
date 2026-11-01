@@ -1,0 +1,13 @@
+{
+  "name": "SRS GPIO Module Firmware",
+  "version": "106",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "gpio_v106_merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
