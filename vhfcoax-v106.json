@@ -1,0 +1,13 @@
+{
+  "name": "SRS #332 VHF / UHF Coax Relay Module Firmware",
+  "version": "106",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "vhfcoax_v106_merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

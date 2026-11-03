@@ -1,0 +1,13 @@
+{
+  "name": "SRS #323 Argus Data Logger Firmware",
+  "version": "92",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "argus_v92_merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
