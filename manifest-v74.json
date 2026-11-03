@@ -1,0 +1,13 @@
+{
+  "name": "SRS #420 ROIP Device Firmware",
+  "version": "74",
+  "new_install_prompt_erase": true,
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "roip_v74_merged.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

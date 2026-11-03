@@ -67,7 +67,31 @@
 
     <div class="version">
       <div>
-        <h3>ROIP Device firmware rev 72 <span class="tag">Latest</span></h3>
+        <h3>ROIP Device firmware rev 74 <span class="tag">Latest</span></h3>
+        <p>Rides out brief processing delays more reliably, adds timing diagnostics to //net,
+           optional hardware RS-485 direction control (//rs485hw), an adjustable audio
+           output cushion (//dacprime), and keeps DHCP addresses current during very long
+           transmissions.</p>
+      </div>
+      <esp-web-install-button manifest="manifest-v74.json">
+        <button class="install" slot="activate">Install firmware rev 74</button>
+      </esp-web-install-button>
+    </div>
+
+    <div class="version">
+      <div>
+        <h3>ROIP Device firmware rev 73</h3>
+        <p>Fixes slow console responses in //setup and brief audio dropouts caused by
+           failed DCN connection attempts, and gives a quieter boot screen.</p>
+      </div>
+      <esp-web-install-button manifest="manifest-v73.json">
+        <button class="install" slot="activate">Install firmware rev 73</button>
+      </esp-web-install-button>
+    </div>
+
+    <div class="version">
+      <div>
+        <h3>ROIP Device firmware rev 72</h3>
         <p>Wi-Fi setup page (hold the mode button at power-up), a short boot summary with a
            link check for each channel (//status), faster and more reliable GPIO,
            smoother audio on long transmissions, and DCN connection logging.</p>
@@ -124,8 +148,11 @@
       <li>Make sure you pick the firmware for <b>your product</b>. Installing another product's firmware won't work.</li>
       <li>Click <b>Install</b> next to the version you want.</li>
       <li>Pick your device from the list of ports and click <b>Connect</b>.</li>
-      <li>When asked to erase, choose <b>No</b> to keep your settings, or <b>Yes</b> for a full factory reset.</li>
+      <li>When asked whether to erase the device, either answer is fine.</li>
       <li>Wait for the install to finish. Don't unplug the device until it says it's done.</li>
+      <li>Installing resets the device's saved settings, so set it up again afterwards. On the ROIP Device,
+          type <b>//setup</b> in the serial console, or hold the mode button while powering up to use the
+          Wi-Fi setup page from your phone (rev 72 and later).</li>
     </ol>
     <h3>No port in the list?</h3>
     <p>Try another USB cable (some only charge) or another USB port, and close any other program that's connected to the device.</p>
