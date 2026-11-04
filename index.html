@@ -28,6 +28,9 @@
   button.install { background:var(--accent); color:#fff; border:0; border-radius:6px; padding:10px 18px; font-size:.95rem; font-weight:600; cursor:pointer; white-space:nowrap; }
   button.install:hover { filter:brightness(1.1); }
   ol { padding-left:20px; }
+  .docs { margin:6px 0 0; font-size:.9rem; display:flex; flex-wrap:wrap; gap:4px 16px; }
+  .docs a { color:var(--accent); text-decoration:none; font-weight:600; }
+  .docs a:hover { text-decoration:underline; }
   .help { margin-top:36px; border-top:1px solid var(--line); padding-top:12px; }
   .help h3 { font-size:1rem; margin-bottom:4px; }
 </style>
@@ -74,6 +77,10 @@
         <h3>ROIP Device firmware rev 79 <span class="tag">Latest</span></h3>
         <p>Adds pre/de-emphasis switches to emulate a radio or use flat audio
           as well as network bit rate monitoring.</p>
+        <p class="docs">
+          <a href="ROIP_Quick_Start_Guide_v79.pdf" target="_blank" rel="noopener">Quick Start Guide (PDF)</a>
+          <a href="ROIP_Module_User_Guide_v79.pdf" target="_blank" rel="noopener">Product Reference Guide (PDF)</a>
+        </p>
       </div>
       <esp-web-install-button manifest="manifest-v79.json">
         <button class="install" slot="activate">Install firmware rev 79</button>
@@ -82,7 +89,7 @@
     
     <div class="version">
       <div>
-        <h3>ROIP Device firmware rev 75 <span class="tag">Latest</span></h3>
+        <h3>ROIP Device firmware rev 75</h3>
         <p>Rides out brief processing delays more reliably, adds timing diagnostics to //net,
            optional hardware RS-485 direction control (//rs485hw), an adjustable audio
            output cushion (//dacprime), and keeps DHCP addresses current during very long
